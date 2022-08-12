@@ -1,0 +1,7 @@
+# Create a file like this with the name `conf.yaml` and place in same directory
+# Code is written to read from this location from `conf.yaml` file.
+# Replace values accordingly
+
+Redis:
+    server: redis-test.us-sample.ec2.cloud.redislabs.com:19079
+    password: delta1234
