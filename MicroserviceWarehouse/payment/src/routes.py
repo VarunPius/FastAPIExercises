@@ -24,7 +24,9 @@ from src.models import Order
 ## Get all order ##
 @app.get('/order/{id}')
 def get(id: str):
-    return Order.get(id)
+    order = Order.get(id)
+    # redis.xadd('order_refund', order.dict(), '*')     # Added just to create the group and stream; after one run can be commented
+    return order
 
 @app.get('/orders')
 def get_all():
