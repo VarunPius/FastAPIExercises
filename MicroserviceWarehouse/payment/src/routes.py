@@ -2,7 +2,7 @@
 # Imports                                                                                         ##
 ####################################################################################################
 
-# Internal modules:
+# Standard modules:
 import time
 
 # External modules:
@@ -13,6 +13,7 @@ import requests
 
 # Internal Modules:
 from src import app
+from src import redis
 from src.models import Order
 
 
@@ -63,3 +64,5 @@ def order_completed(order: Order):
     time.sleep(10)
     order.status = 'completed'
     order.save()
+
+    redis.xadd('order_complete', order.dict(), '*') # (stream_name, key-value pairs, id)

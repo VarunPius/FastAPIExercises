@@ -3,3 +3,4 @@ pydantic
 uvicorn
 redis-om
 requests
+pyyaml
