@@ -1,7 +1,7 @@
 # FastAPI
 
 # Start application
-We start the application with `uvicorn`. [$$$explain what's uvicorn]
+We start the application with `uvicorn`. [//TODOexplain what's uvicorn]
 ```sh
 # Basic start
 uvicorn run:app --reload
