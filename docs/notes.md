@@ -1,5 +1,11 @@
 # FastAPI
 
+# Installing FastApi
+To install FastAPI using uvicorn:
+```
+poetry add fastapi uvicorn
+```
+
 # Start application
 We start the application with `uvicorn`. [//TODOexplain what's uvicorn]
 ```sh
