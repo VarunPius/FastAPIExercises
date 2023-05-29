@@ -1,0 +1,10 @@
+# Processing HTTP requests
+requests
+
+# Read YAML file
+ruamel.yaml
+
+# FastAPI requirements
+fastapi
+pydantic
+uvicorn
