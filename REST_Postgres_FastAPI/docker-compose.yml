@@ -1,0 +1,30 @@
+# docker-compose.yml
+
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: resources/Dockerfile
+    command: uvicorn run:app --reload --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/app
+    ports:
+      - 8001:8000
+  db:
+    container_name: postgres_db
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=vpiusr
+      - POSTGRES_PASSWORD=Seatt!3
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+    driver: local
