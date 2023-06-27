@@ -8,3 +8,6 @@ ruamel.yaml
 fastapi
 pydantic
 uvicorn
+
+# Database connectors
+sqlalchemy
