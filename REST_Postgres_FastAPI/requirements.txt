@@ -11,3 +11,4 @@ uvicorn
 
 # Database connectors
 sqlalchemy
+psycopg2
