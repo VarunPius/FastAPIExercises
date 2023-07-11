@@ -1,9 +1,9 @@
 from fastapi import APIRouter, status, HTTPException
-#from src.config.db import conn
 from src.models.index import UsersModel
 from src.schemas.index import User, UserOut
 
 from typing import Optional, List
+#from src.config.db import conn
 from src.config.db import SessionLocal
 
 
@@ -38,7 +38,8 @@ async def create_user(user: User):
     
     db.add(new_user)
     db.commit()
-    return new_user    # response model is User; if you need "Success" or "new user added" use `str`
+    return new_user     # response model is UserOut;
+                        # if you need "Success" or "new user added" use `str`
 
 
 '''
