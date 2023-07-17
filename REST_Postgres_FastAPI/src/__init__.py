@@ -13,6 +13,9 @@
 # System Libraries
 import os
 
+# Internal imports
+from src.routes.index import user
+
 # External librabries
 from fastapi import FastAPI
 
@@ -24,6 +27,7 @@ from fastapi import FastAPI
 # FastAPI
 # -------------------------------------------------------------------------------------------------------------------------------------------------- #
 app = FastAPI()
+app.include_router(user)    # `user` from routes APIRouter
 
 
 # Directory setups
@@ -32,8 +36,3 @@ basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 confdir = os.path.join(basedir, 'resources')
 #datadir = os.path.join(basedir, 'data')
 
-
-# -------------------------------------------------------------------------------------------------------------------------------------------------- #
-# Circular imports
-# -------------------------------------------------------------------------------------------------------------------------------------------------- #
-from src import routes
