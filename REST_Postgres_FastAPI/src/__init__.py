@@ -36,3 +36,12 @@ basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 confdir = os.path.join(basedir, 'resources')
 #datadir = os.path.join(basedir, 'data')
 
+
+# Home page
+# -------------------------------------------------------------------------------------------------------------------------------------------------- #
+
+@app.get("/")
+async def root():
+    return {"Hello": "mundo"}
+
+
