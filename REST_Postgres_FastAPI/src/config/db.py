@@ -22,6 +22,7 @@ from sqlalchemy.orm import sessionmaker
 
 # engine=create_engine("postgresql://<user>:<pwd>@<host>/<db>",
 conn_url = 'postgresql+psycopg2://vpiusr:Seatt!3@postgres_db/postgres'
+DATABASE_URL = 'postgresql+psycopg2://vpiusr:Seatt!3@postgres_db/postgres'
 engine = create_engine(conn_url, echo=True)
 
 Base = declarative_base()
