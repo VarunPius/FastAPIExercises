@@ -40,6 +40,23 @@ confdir = os.path.join(basedir, 'resources')
 # Home page
 # -------------------------------------------------------------------------------------------------------------------------------------------------- #
 
+import logging
+from fastapi import FastAPI
+from src.config.db_init import init_db
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+@app.on_event("startup")
+async def startup_event():
+    logger.info("Starting database initialization...")
+    try:
+        init_db()
+        logger.info("Database initialization complete")
+    except Exception as e:
+        logger.error(f"Database initialization failed: {e}")
+
+
 @app.get("/")
 async def root():
     return {"Hello": "mundo"}

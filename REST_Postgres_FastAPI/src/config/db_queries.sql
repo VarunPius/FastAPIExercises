@@ -1,3 +1,8 @@
+/*
+This file is not needed anymore.
+It was created because earlier version
+*/
+
 -- DDL: Create table :
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,

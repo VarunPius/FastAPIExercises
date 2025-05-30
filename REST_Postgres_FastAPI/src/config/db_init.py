@@ -2,7 +2,7 @@
 # Code Info                                                                                                                                          #
 #                                                                                                                                                    #                                                                                                                                     #
 # Author(s): Varun Pius Rodrigues                                                                                                                    #
-# About: Model Index file                                                                                                                            #
+# About: Database setup and initializer                                                                                                              #
 ######################################################################################################################################################
 
 
@@ -10,49 +10,50 @@
 # Library Imports goes here
 # -------------------------------------------------------------------------------------------------------------------------------------------------- #
 
-# External librabries
-from sqlalchemy import Table, Column
-from sqlalchemy.sql.sqltypes import Integer, String, Text
-
 # Internal imports
-#from src.config.db import Base
-from src.models.index import Base
+from src.config.db import DATABASE_URL
+from src.models.index import Base  # Import your SQLAlchemy models
+
+
+# External librabries
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------- #
-# Models 
+# Code Here 
 # -------------------------------------------------------------------------------------------------------------------------------------------------- #
 
-class UsersModel(Base):
-    __tablename__='users'
-    id = Column(Integer, primary_key = True)
-    name = Column(String(255), nullable = False)
-    email = Column(Text, unique = True)
-    address = Column(Text)
-
-    def __repr__(self):
-        return f"<User name = {self.name} |-> email = {self.email}>"
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
+def drop_db():
+    from src.config.db import DATABASE_URL
+    from src.models.index import Base
+    
+    engine = create_engine(DATABASE_URL)
+    
+    # This will drop all tables
+    Base.metadata.drop_all(bind=engine)
+    
+    print("All database tables dropped successfully!")
 
-# -------------------------------------------------------------------------------------------------------------------------------------------------- #
-# Appendix
-# -------------------------------------------------------------------------------------------------------------------------------------------------- #
 
-'''
-Old code:
-from sqlalchemy.sql.expression import null
-from database import Base
-from src.config.db import meta
-from sqlalchemy import String,Boolean,Integer,Column,Text
+def init_db():
+    # Create engine with your connection string
+    logger.info("Creating engine")
+    engine = create_engine(DATABASE_URL)
+    logger.info("Engine created")
+    
+    # Create all tables
+    Base.metadata.create_all(bind=engine)
+    
+    #print("Database tables created successfully!")
+    logger.info("Database tables created successfully!")
 
 
-users = Table(
-    'users', meta,
-    Column('id', Integer, primary_key = True),
-    Column('name', String(255)),
-    Column('email', String(255)),
-    Column('password', String(255))
-)
-
-'''
+if __name__ == "__main__":
+    init_db()
