@@ -10,6 +10,11 @@
 # Library Imports goes here
 # -------------------------------------------------------------------------------------------------------------------------------------------------- #
 
+# Internal imports
+from src.config.db import DATABASE_URL
+from src.models.index import Base  # Import your SQLAlchemy models
+
+
 # External librabries
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
@@ -17,37 +22,38 @@ from sqlalchemy.orm import sessionmaker
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------- #
-# Configurations goes here
+# Code Here 
 # -------------------------------------------------------------------------------------------------------------------------------------------------- #
 
-# engine=create_engine("postgresql://<user>:<pwd>@<host>/<db>",
-conn_url = 'postgresql+psycopg2://vpiusr:Seatt!3@postgres_db/postgres'
-DATABASE_URL = 'postgresql+psycopg2://vpiusr:Seatt!3@postgres_db/postgres'
-engine = create_engine(conn_url, echo=True)
-
-Base = declarative_base()
-SessionLocal = sessionmaker(bind=engine)
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
-# -------------------------------------------------------------------------------------------------------------------------------------------------- #
-# Appendix
-# -------------------------------------------------------------------------------------------------------------------------------------------------- #
+def drop_db():
+    from src.config.db import DATABASE_URL
+    from src.models.index import Base
+    
+    engine = create_engine(DATABASE_URL)
+    
+    # This will drop all tables
+    Base.metadata.drop_all(bind=engine)
+    
+    print("All database tables dropped successfully!")
 
-'''
-Old Code:
-from sqlalchemy import  MetaData
-from sqlalchemy.engine import URL
-url = URL.create(
-    drivername="vpiusr",
-    username="coderpad",
-    host="/tmp/postgresql/socket",
-    database="postgres"
-)
-engine = create_engine(url)
-# or 
-engine = create_engine(conn_url)
 
-conn = engine.connect()
+def init_db():
+    # Create engine with your connection string
+    logger.info("Creating engine")
+    engine = create_engine(DATABASE_URL)
+    logger.info("Engine created")
+    
+    # Create all tables
+    Base.metadata.create_all(bind=engine)
+    
+    #print("Database tables created successfully!")
+    logger.info("Database tables created successfully!")
 
-meta = MetaData()       # meta is used in models if creating object using `Table`
-'''
+
+if __name__ == "__main__":
+    init_db()

@@ -15,7 +15,8 @@ from sqlalchemy import Table, Column
 from sqlalchemy.sql.sqltypes import Integer, String, Text
 
 # Internal imports
-from src.config.db import Base
+#from src.config.db import Base
+from src.models.index import Base
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------- #

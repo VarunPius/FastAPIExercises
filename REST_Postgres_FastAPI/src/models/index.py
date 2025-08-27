@@ -10,5 +10,9 @@
 # Library Imports goes here
 # -------------------------------------------------------------------------------------------------------------------------------------------------- #
 
+from sqlalchemy.orm import declarative_base
+Base = declarative_base()
+
+
 # Internal imports
 from src.models.user import UsersModel
